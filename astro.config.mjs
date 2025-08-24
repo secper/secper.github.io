@@ -11,7 +11,7 @@ export default defineConfig({
       locales: {
         root: { label: '简体中文', lang: 'zh-CN' }
       },
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/secper/secper.github.io' }],
 			sidebar: [
 				{
 					label: 'Guides',
