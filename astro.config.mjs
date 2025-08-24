@@ -20,10 +20,10 @@ export default defineConfig({
 						{ label: 'Example Guide', slug: 'guides/example' },
 					],
 				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
+        {
+          label: '前端',
+          autogenerate: { directory: 'frontend' },
+        },
 			],
 		}),
 	],
