@@ -4,7 +4,7 @@ title: Vue
 
 ## 设置路径别名
 
-```js {2-6} title="vite.config.ts"
+```js {3-5} title="vite.config.ts"
 export default defineConfig(async () => ({
   resolve: {
     alias: {
