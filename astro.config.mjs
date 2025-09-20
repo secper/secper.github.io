@@ -24,6 +24,10 @@ export default defineConfig({
           label: '前端',
           autogenerate: { directory: 'frontend' },
         },
+        {
+          label: '工具',
+          autogenerate: { directory: 'tools' },
+        },
 			],
 		}),
 	],
