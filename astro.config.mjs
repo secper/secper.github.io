@@ -20,6 +20,10 @@ export default defineConfig({
 						{ label: 'Example Guide', slug: 'guides/example' },
 					],
 				},
+				{
+					label: '数据库',
+					autogenerate: { directory: 'db' },
+				},
         {
           label: '前端',
           autogenerate: { directory: 'frontend' },
