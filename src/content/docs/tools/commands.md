@@ -4,27 +4,28 @@ title: "命令"
 
 ## PowerShell查询进程创建时间
 
-```python {6-8} "%s"
+```python {7-9} "%s"
 from datetime import datetime
 import re
 import subprocess
 
-ps_query_process_create_time = """
-    Get-CimInstance -ClassName Win32_Process -Filter "Name='%s'" \
-    | Select-Object -ExpandProperty CreationDate \
-    | ForEach-Object { Get-Date $_ -Format "yyyyMMddHHmmss.ffffff" }
-""".strip()
+def query_process_create_time(process_name) -> list[datetime]:
+    ps_query_process_create_time = """
+        Get-CimInstance -ClassName Win32_Process -Filter "Name='%s'" |
+        Select-Object -ExpandProperty CreationDate |
+        ForEach-Object { Get-Date $_ -Format "yyyyMMddHHmmss.ffffff" }
+    """.strip()
+    result = subprocess.run(
+        ["powershell", ps_query_process_create_time % process_name],
+        capture_output=True,
+        check=True,
+    )
+    times_as_bytes: list[bytes] = re.findall(rb"\d+\.\d+", result.stdout)
+    times_as_str: list[str] = [time.decode("utf-8") for time in times_as_bytes]
+    return [datetime.strptime(t, "%Y%m%d%H%M%S.%f") for t in times_as_str]
 
-process_name = "python.exe"
 
-result = subprocess.run(
-    ["powershell", ps_query_process_create_time % process_name],
-    capture_output=True,
-    check=True,
-)
-times_as_bytes: list[bytes] = re.findall(rb"\d+\.\d+", result.stdout)
-times_as_str: list[str] = [time.decode("utf-8") for time in times_as_bytes]
-return [datetime.strptime(t, "%Y%m%d%H%M%S.%f") for t in times_as_str]
+print(query_process_create_time("python.exe"))
 ```
 
 <details>
